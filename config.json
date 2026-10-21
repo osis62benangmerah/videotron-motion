@@ -1,0 +1,32 @@
+{
+  "project": "NOVA — Every Pixel Alive",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "duration": 12.0,
+  "safe_area": 0.05,
+  "brand": {
+    "name": "NOVA",
+    "tagline": "EVERY PIXEL ALIVE"
+  },
+  "lower_third": {
+    "name": "ALEX MORGAN",
+    "role": "CREATIVE DIRECTOR",
+    "kicker": "NOVA / 2026",
+    "duration": 6.0
+  },
+  "colors": {
+    "bg": "#05070e",
+    "ink": "#f4f7fb",
+    "muted": "#9aa7b8",
+    "cyan": "#00e5ff",
+    "violet": "#7c5cff",
+    "lime": "#d6ff3f",
+    "panel": "#070b14"
+  },
+  "render": {
+    "workers": 6,
+    "keep_svg": false,
+    "png_scale": 1
+  }
+}

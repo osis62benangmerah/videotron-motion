@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NOVA — Every Pixel Alive</title>
+  <style>
+    @font-face {
+      font-family: "Sora";
+      src: url("assets/fonts/Sora.ttf") format("truetype");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --bg: #05070e;
+      --ink: #f4f7fb;
+      --muted: #9aa7b8;
+      --cyan: #00e5ff;
+      --lime: #d6ff3f;
+      --violet: #7c5cff;
+      --line: rgba(244, 247, 251, 0.13);
+      --panel: rgba(7, 11, 20, 0.72);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { background: var(--bg); }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(900px 600px at 18% 8%, rgba(0, 229, 255, 0.10), transparent 65%),
+        radial-gradient(900px 700px at 86% 62%, rgba(124, 92, 255, 0.12), transparent 66%),
+        var(--bg);
+      font-family: "Sora", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image:
+        linear-gradient(rgba(244, 247, 251, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(244, 247, 251, 0.045) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(circle at 50% 32%, black, transparent 78%);
+    }
+
+    .wrap {
+      position: relative;
+      width: min(1400px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 34px 0 60px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brandline {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .brandline .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--lime);
+      border-radius: 50%;
+      box-shadow: 0 0 18px rgba(214, 255, 63, 0.65);
+    }
+
+    .meta {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      color: var(--muted);
+      text-transform: uppercase;
+      text-align: right;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.55fr);
+      gap: 56px;
+      align-items: end;
+      padding: 76px 0 64px;
+    }
+
+    .eyebrow {
+      margin: 0 0 20px;
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(64px, 9.5vw, 150px);
+      font-weight: 800;
+      line-height: 0.86;
+      letter-spacing: -0.055em;
+      text-transform: uppercase;
+      background: linear-gradient(180deg, #ffffff 8%, #d8fbff 48%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    h1 span {
+      color: var(--lime);
+      background: none;
+    }
+
+    @supports (-webkit-text-stroke: 1px black) {
+      h1 span {
+        color: transparent;
+        -webkit-text-stroke: 2px rgba(214, 255, 63, 0.85);
+      }
+    }
+
+    .lede {
+      max-width: 620px;
+      margin: 28px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 17px;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: border-color 160ms ease, background 160ms ease;
+    }
+
+    .btn:hover {
+      border-color: rgba(0, 229, 255, 0.6);
+      background: rgba(0, 229, 255, 0.06);
+    }
+
+    .btn.primary {
+      border-color: var(--cyan);
+      background: var(--cyan);
+      color: #031017;
+    }
+
+    .btn.primary:hover { background: #7df4ff; }
+
+    .spec-card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 24px;
+      border-radius: 3px;
+      backdrop-filter: blur(10px);
+    }
+
+    .spec-card h2 {
+      margin: 0 0 18px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 11px 0;
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+    }
+
+    .spec-row:first-of-type { border-top: 0; }
+
+    .spec-row dt { color: var(--muted); font-weight: 300; }
+    .spec-row dd { margin: 0; text-align: right; font-weight: 500; }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .section-head span {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .video-frame {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      background: #03050a;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.4);
+    }
+
+    .video-frame video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .frame-label {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      padding: 6px 8px;
+      background: rgba(5, 7, 14, 0.74);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    .storyboard {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 12px 0 70px;
+    }
+
+    .storyboard figure {
+      margin: 0;
+      border: 1px solid var(--line);
+      background: #03050a;
+      overflow: hidden;
+    }
+
+    .storyboard img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .storyboard figcaption {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 11px 12px;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .storyboard figcaption b { color: var(--ink); font-weight: 500; }
+
+    .lower {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
+      gap: 42px;
+      align-items: center;
+      padding: 64px 0 72px;
+      border-top: 1px solid var(--line);
+    }
+
+    .lower h2 {
+      margin: 0;
+      font-size: clamp(34px, 4.4vw, 64px);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      font-weight: 700;
+    }
+
+    .lower p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+      font-weight: 300;
+      max-width: 460px;
+    }
+
+    .lower ul {
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.9;
+    }
+
+    .lower li::before {
+      content: "—";
+      color: var(--lime);
+      margin-right: 10px;
+    }
+
+    .small-note {
+      margin-top: 26px;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      line-height: 1.7;
+      text-transform: uppercase;
+    }
+
+    footer a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line); }
+    footer a:hover { color: var(--cyan); }
+
+    @media (max-width: 900px) {
+      .wrap { width: min(100% - 28px, 1400px); }
+      .hero, .lower { grid-template-columns: 1fr; gap: 32px; }
+      .hero { padding-top: 48px; }
+      .meta { display: none; }
+      .storyboard { grid-template-columns: 1fr; }
+      .storyboard figure:nth-child(3) { display: none; }
+      footer { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brandline"><span class="dot"></span> NOVA / Ident</div>
+      <div class="meta">Videotron loop · 12 s · 30 fps · Rec.709</div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Code-rendered motion / 2026</p>
+          <h1>Every<br>Pixel<br><span>Alive</span></h1>
+          <p class="lede">
+            A seamless 12-second videotron ident and a transparent lower third,
+            designed for large-format LED, rendered from SVG and delivered as
+            straight-alpha PNGs and ProRes masters for After Effects.
+          </p>
+          <div class="actions">
+            <a class="btn primary" href="out/main_loop/main_loop_prores422hq.mov">ProRes 422 HQ master</a>
+            <a class="btn" href="out/lower_third/lower_third_prores4444_alpha.mov">Lower third · 4444 alpha</a>
+            <a class="btn" href="out/manifest.json">Manifest</a>
+          </div>
+        </div>
+
+        <aside class="spec-card">
+          <h2>Delivery specs</h2>
+          <dl>
+            <div class="spec-row"><dt>Canvas</dt><dd>1920 × 1080</dd></div>
+            <div class="spec-row"><dt>Frame rate</dt><dd>30 fps</dd></div>
+            <div class="spec-row"><dt>Main duration</dt><dd>12.0 s loop</dd></div>
+            <div class="spec-row"><dt>Lower third</dt><dd>6.0 s · alpha</dd></div>
+            <div class="spec-row"><dt>Safe area</dt><dd>5% / 96 × 54 px</dd></div>
+            <div class="spec-row"><dt>Colour</dt><dd>Rec.709 / sRGB</dd></div>
+            <div class="spec-row"><dt>Typeface</dt><dd>Sora · OFL</dd></div>
+          </dl>
+        </aside>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>01 / Main loop</h2>
+          <span>1920 × 1080 · 00:12 · 30 fps</span>
+        </div>
+        <div class="video-frame">
+          <video src="out/main_loop/main_loop_preview.mp4"
+                 poster="out/main_loop/stills/main_loop_09.5s.png"
+                 autoplay muted loop playsinline controls></video>
+          <div class="frame-label">Main / 12s / ProRes 422 HQ available</div>
+        </div>
+      </section>
+
+      <section class="storyboard" aria-label="Main loop storyboard">
+        <figure>
+          <img src="out/main_loop/stills/main_loop_01.7s.png" alt="Signal line and brand mark">
+          <figcaption><b>01 / Signal</b><span>00:01.7</span></figcaption>
+        </figure>
+        <figure>
+          <img src="out/main_loop/stills/main_loop_05.9s.png" alt="Kinetic typography">
+          <figcaption><b>02 / Kinetic</b><span>00:05.9</span></figcaption>
+        </figure>
+        <figure>
+          <img src="out/main_loop/stills/main_loop_09.5s.png" alt="Resolved brand lockup">
+          <figcaption><b>03 / Lockup</b><span>00:09.5</span></figcaption>
+        </figure>
+      </section>
+
+      <section class="lower">
+        <div class="video-frame">
+          <video src="out/lower_third/lower_third_preview.mp4"
+                 poster="out/lower_third/stills/lower_third_01.7s.png"
+                 autoplay muted loop playsinline controls></video>
+          <div class="frame-label">Lower third / 6s / straight alpha</div>
+        </div>
+        <div>
+          <p class="eyebrow">02 / Lower third</p>
+          <h2>Transparent.<br>Ready to composite.</h2>
+          <p>
+            The 6-second lower third is rendered with straight alpha and a
+            transparent tail, so it can sit over interviews, product footage or
+            a live feed without a background plate.
+          </p>
+          <ul>
+            <li>ProRes 4444 · straight alpha</li>
+            <li>PNG sequence · 180 frames</li>
+            <li>5% title-safe layout</li>
+            <li>Text configurable in config.json</li>
+          </ul>
+          <p class="small-note">Preview shown over a neutral demo plate.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>NOVA — Every Pixel Alive · code-rendered videotron package</span>
+      <span>SVG → PNG → ProRes · <a href="README.md">README</a> · <a href="ae/Import_NOVA.jsx">After Effects importer</a></span>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+{
+  "project": "NOVA — Every Pixel Alive",
+  "generated_at": "2026-10-21T11:38:40+00:00",
+  "design": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "render": {
+    "width": 1920,
+    "height": 1080,
+    "scale": 1.0
+  },
+  "font": "Sora (SIL Open Font License 1.1) — assets/fonts/Sora.ttf",
+  "color": "Rec.709, video range in ProRes/H.264; full-range sRGB in PNG",
+  "scenes": {
+    "main_loop": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "frames": 360,
+      "duration": 12.0,
+      "alpha": false,
+      "png_sequence": "out/main_loop/png",
+      "stills": [
+        {
+          "path": "out/main_loop/stills/main_loop_01.7s.png",
+          "bytes": 379883
+        },
+        {
+          "path": "out/main_loop/stills/main_loop_05.9s.png",
+          "bytes": 314840
+        },
+        {
+          "path": "out/main_loop/stills/main_loop_09.5s.png",
+          "bytes": 338222
+        }
+      ],
+      "files": {
+        "master": {
+          "path": "out/main_loop/main_loop_prores422hq.mov",
+          "bytes": 68810929
+        },
+        "preview": {
+          "path": "out/main_loop/main_loop_preview.mp4",
+          "bytes": 4287756
+        }
+      }
+    },
+    "lower_third": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "frames": 180,
+      "duration": 6.0,
+      "alpha": true,
+      "png_sequence": "out/lower_third/png",
+      "stills": [
+        {
+          "path": "out/lower_third/stills/lower_third_01.7s.png",
+          "bytes": 322271
+        },
+        {
+          "path": "out/lower_third/stills/lower_third_03.1s.png",
+          "bytes": 321356
+        }
+      ],
+      "files": {
+        "master": {
+          "path": "out/lower_third/lower_third_prores4444_alpha.mov",
+          "bytes": 25531297
+        },
+        "preview": {
+          "path": "out/lower_third/lower_third_preview.mp4",
+          "bytes": 184465
+        }
+      }
+    }
+  }
+}

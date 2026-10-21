@@ -1,0 +1,20 @@
+# Build artifacts. Keep only the small review files in the repository;
+# ProRes masters and the full PNG sequences are generated locally.
+out/**
+!out/manifest.json
+!out/main_loop/
+!out/main_loop/main_loop_preview.mp4
+!out/main_loop/stills/
+!out/main_loop/stills/*.png
+!out/lower_third/
+!out/lower_third/lower_third_preview.mp4
+!out/lower_third/stills/
+!out/lower_third/stills/*.png
+
+# Python
+__pycache__/
+*.py[cod]
+
+# OS/editor
+.DS_Store
+.vscode/
